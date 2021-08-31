@@ -3,6 +3,7 @@ import listEndpoints from "express-list-endpoints"
 import mongoose from 'mongoose'
 
 import usersRouter from "./services/users/index.js"
+import {badRequestErrorHandler, catchAllErrorHandler, notFoundErrorHandler} from './errorHandlers.js'
 
 const server = express()
 
@@ -19,6 +20,9 @@ server.use("/users", usersRouter)
 
 // ******************* ERROR HANDLERS ******************
 
+server.use(badRequestErrorHandler)
+server.use(notFoundErrorHandler)
+server.use(catchAllErrorHandler)
 
 
 mongoose.connect(process.env.MONGO_CONNECTION)
